@@ -1,0 +1,69 @@
+<div style="width: 90%; margin: 0px auto">
+	<mat-card style="margin-top: 20px">
+		<mat-card-header>
+			<mat-card-title>
+				Angular/Typescript Role Based Permissions
+			</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			This is an exercise on role based permissions
+		</mat-card-content>
+
+	</mat-card>
+
+	<mat-accordion>
+		<mat-expansion-panel>
+			<mat-expansion-panel-header>
+				<mat-panel-title>
+					Permission Editor
+				</mat-panel-title>
+				<mat-panel-description>
+					See the current permissions
+				</mat-panel-description>
+			</mat-expansion-panel-header>
+      <mat-form-field>
+        <mat-label>Permission role</mat-label>
+        <mat-select [(value)]="selectedRole">
+          <mat-option *ngFor="let role of roles" [value]="role" >
+            {{Roles[role].name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <h2>Permissions</h2>
+      <pre *ngIf="selectedRole">
+        {{Roles[selectedRole].permissions | json}}
+      </pre>
+		</mat-expansion-panel>
+		<mat-expansion-panel>
+			<mat-expansion-panel-header>
+				<mat-panel-title>
+					Permission Tester
+				</mat-panel-title>
+				<mat-panel-description>
+					Test your permissions
+				</mat-panel-description>
+			</mat-expansion-panel-header>
+    <mat-form-field>
+      <mat-label>Permission role</mat-label>
+      <mat-select [(value)]="selectedRole">
+        <mat-option *ngFor="let role of roles" [value]="role" >
+          {{Roles[role].name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Operation</mat-label>
+      <mat-select [(value)]="selectedOperation" (selectionChange)="calculatePermission()">
+        <mat-option *ngFor="let operation of permission" [value]="operation">
+          {{operation}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div *ngIf="selectedOperation && selectedRole">
+      You <strong *ngIf="canAccess">can</strong><strong *ngIf="!canAccess">can't</strong> perform {{selectedOperation}} with {{Roles[selectedRole].name}} Role.
+    </div>
+		</mat-expansion-panel>
+	</mat-accordion>
+
+
+</div>
